@@ -1,5 +1,5 @@
 -- Lists all bands with Glam rock as their main style,
---  ordered by their longevity
+-- ordered by their longevity
 
 SELECT band_name, (IFNULL(split, 2022) - formed) AS lifespan
 FROM
