@@ -12,20 +12,20 @@ def log_stats():
 
     # Total number of logs
     total_logs = collection.count_documents({})
-    print("{} logs".format(total_logs))
+    print(f"{total_logs} logs")
 
     # Methods stats
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     print("Methods:")
     for method in methods:
         count = collection.count_documents({"method": method})
-        print("\tmethod {}: {}".format(method, count))
+        print(f"\tmethod {method}: {count}")
 
     # Number of documents with method=GET and path=/status
     status_check = collection.count_documents(
         {"method": "GET", "path": "/status"}
     )
-    print("{} status check".format(status_check))
+    print(f"{status_check} status check")
 
 
 if __name__ == "__main__":
