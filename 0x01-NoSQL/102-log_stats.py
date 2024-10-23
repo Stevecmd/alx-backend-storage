@@ -22,18 +22,23 @@ def log_stats():
         print(f"\tmethod {method}: {count}")
 
     # Number of documents with method=GET and path=/status
-    query = {"method": "GET", "path": "/status"}
-    status_check = collection.count_documents(query)
+    status_check = collection.count_documents(
+        {"method": "GET", "path": "/status"}
+    )
     print(f"{status_check} status check")
 
-    # Top 10 most present IPs
-    pipeline = [{"$group": {"_id": "$ip", "count": {"$sum": 1}}},
-                {"$sort": {"count": -1}},
-                {"$limit": 10}]
+    # Get top 10 IPs
+    pipeline = [
+        {"$group": {"_id": "$ip", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10}
+    ]
+
     top_ips = list(collection.aggregate(pipeline))
+
     print("IPs:")
-    for ip in top_ips:
-        print(f"\t{ip['_id']}: {ip['count']}")
+    for ip_info in top_ips:
+        print(f"\t{ip_info['_id']}: {ip_info['count']}")
 
 
 if __name__ == "__main__":
